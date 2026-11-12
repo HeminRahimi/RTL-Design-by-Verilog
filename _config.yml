@@ -1,0 +1,9 @@
+title: RTL Design with Verilog
+description: >-
+  A professional course on Register-Transfer Level (RTL) design using Verilog —
+  from switch level through gate, dataflow, and behavioral modeling, followed by
+  verification with testbenches.
+theme: minima
+markdown: kramdown
+highlighter: rouge
+lang: en

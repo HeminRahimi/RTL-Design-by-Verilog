@@ -1,0 +1,15 @@
+# Simulation outputs
+*.vcd
+*.vvp
+*.lxt
+*.fst
+
+# Compiled simulation binaries (from iverilog -o)
+sim
+sim_*
+a.out
+
+# Editor leftovers
+*.swp
+*~
+.vscode/

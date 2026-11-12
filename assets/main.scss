@@ -1,0 +1,49 @@
+---
+---
+@import "minima";
+
+/* Code blocks always left-to-right */
+pre,
+code,
+.highlight,
+.highlight pre,
+.highlight code {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+
+pre,
+.highlight {
+  font-family: "Fira Code", "Consolas", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.45;
+  border-radius: 6px;
+  overflow-x: auto;
+  padding: 12px 14px;
+}
+
+p code,
+li code,
+td code {
+  direction: ltr;
+  unicode-bidi: embed;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: #f3f3f3;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.2em 0;
+}
+th, td {
+  border: 1px solid #dcdcdc;
+  padding: 6px 10px;
+  text-align: left;
+}
+th {
+  background: #f6f8fa;
+  font-weight: 600;
+}
