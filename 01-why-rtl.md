@@ -26,7 +26,7 @@ This is why RTL is the single most important skill in digital design: it is the 
 
 The name is literal: data is *transferred* from register to register through combinational logic, once per clock edge.
 
-> **Note:** In this course "RTL" means **Register-Transfer Level**. It has nothing to do with right-to-left text direction.
+> **Note:** In this course "RTL" means **Register-Transfer Level**.
 
 An RTL description is **synthesizable**: a synthesis tool can convert it into gates. This property separates RTL from testbench code, which is not synthesizable.
 
