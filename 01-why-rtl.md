@@ -1,5 +1,4 @@
 ---
-layout: default
 title: "1. Why RTL, HDLs, and Verilog?"
 ---
 
