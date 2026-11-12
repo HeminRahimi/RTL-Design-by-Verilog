@@ -27,8 +27,8 @@ buf [instance_name] (output, input);
 Several instances may share one line:
 
 ```verilog
-nor g1 (y1, a, b),
-    g2 (y2, c, d);
+nand g1 (y1, a, b),
+     g2 (y2, c, d);
 ```
 
 ## 5.3 Complete primitive list
@@ -44,29 +44,29 @@ nor g1 (y1, a, b),
 | `not` | 1 | `~a` |
 | `buf` | 1 | `a` |
 
-## 5.4 Example 1 — 2-input NOR
+## 5.4 Example 1 — 2-input NAND
 
 ```verilog
-// examples/gate_nor.v
-module gate_nor (a, b, y);
+// examples/gate_nand.v
+module gate_nand (a, b, y);
 
      input  a, b;
      output y;
 
-     nor g1 (y, a, b);
+     nand g1 (y, a, b);
 
 endmodule
 ```
 
-One instance named `g1`, output `y` first, inputs `a` and `b` after. This produces exactly the same circuit as the switch-level NOR of lesson 4.
+One instance named `g1`, output `y` first, inputs `a` and `b` after. This produces exactly the same circuit as the switch-level NAND of lesson 4.
 
 **Truth table:**
 
 | a | b | y |
 |---|---|---|
 | 0 | 0 | 1 |
-| 0 | 1 | 0 |
-| 1 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
 | 1 | 1 | 0 |
 
 ## 5.5 Example 2 — 1-bit full adder

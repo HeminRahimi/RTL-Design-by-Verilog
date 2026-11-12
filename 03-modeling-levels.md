@@ -16,18 +16,18 @@ Verilog lets you describe the same circuit at four different levels of abstracti
 
 ## 3.1 The running example
 
-The same **2-input NOR gate** is written at all four levels throughout this course, so you can compare them directly.
+The same **2-input NAND gate** is written at all four levels throughout this course, so you can compare them directly.
 
-| a | b | y = ¬(a ∨ b) |
+| a | b | y = ¬(a ∧ b) |
 |---|---|---|
 | 0 | 0 | 1 |
-| 0 | 1 | 0 |
-| 1 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
 | 1 | 1 | 0 |
 
 - **Switch level:** two PMOS in parallel (pull-up), two NMOS in series (pull-down).
-- **Gate level:** one `nor` primitive.
-- **Dataflow:** `assign y = ~(a | b);`
+- **Gate level:** one `nand` primitive.
+- **Dataflow:** `assign y = ~(a & b);`
 - **Behavioral:** an `always @(*)` block with an `if`/`case`.
 
 ## 3.2 How the levels relate

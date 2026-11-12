@@ -3,7 +3,7 @@ layout: default
 title: "4. Switch-Level Modeling"
 ---
 
-# 4. Switch-level modeling: CMOS NOR
+# 4. Switch-level modeling: CMOS NAND
 
 ## 4.1 Transistors as switches
 
@@ -16,12 +16,12 @@ At the switch level a circuit is a network of transistors connecting a supply ra
 
 CMOS logic pairs them: a **pull-up network** of PMOS transistors connects the output to `VDD`, and a **pull-down network** of NMOS transistors connects it to `GND`. Exactly one network conducts at a time, so the output is always driven.
 
-## 4.2 CMOS NOR structure
+## 4.2 CMOS NAND structure
 
-For `y = ¬(a ∨ b)`:
+For `y = ¬(a ∧ b)`:
 
-- **Pull-up:** output must be 1 only when **both** inputs are 0 → two PMOS in **parallel**.
-- **Pull-down:** output must be 0 when **either** input is 1 → two NMOS in **series**.
+- **Pull-up:** output must be 1 whenever **at least one** input is 0 → two PMOS in **parallel**.
+- **Pull-down:** output must be 0 only when **both** inputs are 1 → two NMOS in **series**.
 
 ```text
         VDD
@@ -54,8 +54,8 @@ cmos  [instance_name] (drain, source, ngate, pgate);
 ## 4.4 Complete example
 
 ```verilog
-// examples/switch_nor.v
-module cmos_nor (a, b, y);
+// examples/switch_nand.v
+module cmos_nand (a, b, y);
 
      input  a, b;
      output y;
@@ -64,9 +64,11 @@ module cmos_nor (a, b, y);
      supply0 gnd;
      wire    mid;
 
+     // Pull-up: PMOS in PARALLEL between VDD and y
      pmos p1 (y,   vdd, a);
      pmos p2 (y,   vdd, b);
 
+     // Pull-down: NMOS in SERIES between y and GND
      nmos n1 (y,   mid, a);
      nmos n2 (mid, gnd, b);
 
@@ -82,13 +84,13 @@ endmodule
 | 1 | 0 | off | ON | off | off | **1** |
 | 1 | 1 | off | off | ON | ON | **0** |
 
-The output is high unless both inputs are high — a NOR gate, produced purely from transistors.
+The output is low only when both inputs are high — a NAND gate, produced purely from transistors.
 
 ## 4.6 Simulating it
 
 ```bash
-iverilog -g2012 -Wall -o sim_nor examples/switch_nor.v
-vvp sim_nor
+iverilog -g2012 -Wall -o sim_nand examples/switch_nand.v
+vvp sim_nand
 ```
 
 Because there is no testbench and no `$dumpfile`, `vvp` exits immediately without output. To observe the behaviour you need a testbench — which is the subject of lesson 8. This is exactly the point: **switch-level code describes the circuit, it does not exercise it.**
@@ -108,7 +110,7 @@ Because there is no testbench and no `$dumpfile`, `vvp` exits immediately withou
 ## 4.9 Key takeaways
 
 1. CMOS logic is built from complementary pull-up (PMOS) and pull-down (NMOS) networks.
-2. NOR = PMOS **parallel**, NMOS **series**.
+2. NAND = PMOS **parallel**, NMOS **series**.
 3. `nmos`/`pmos` take `(drain, source, gate)`.
 4. Switch level builds understanding; it is not how RTL is written.
 

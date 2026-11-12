@@ -25,8 +25,8 @@ They do not replace those courses. They give the vocabulary, the toolchain, and 
 | 1 | Why RTL, HDLs, and Verilog |
 | 2 | Tools: Icarus Verilog + GTKWave |
 | 3 | The four modeling levels |
-| 4 | Switch level — CMOS NOR |
-| 5 | Gate level — NOR, full adder |
+| 4 | Switch level — CMOS NAND |
+| 5 | Gate level — NAND, full adder |
 | 6 | Dataflow — half adder, 2:1 MUX |
 | 7 | Behavioral — DFF, 4:1 MUX, counter |
 | 8 | Verification — testbenches |
