@@ -1,4 +1,5 @@
 ---
+layout: default
 title: "4. Switch-Level Modeling"
 ---
 
