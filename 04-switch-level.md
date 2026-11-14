@@ -110,7 +110,7 @@ Because there is no testbench and no `$dumpfile`, `vvp` exits immediately withou
 ## 4.9 Key takeaways
 
 1. CMOS logic is built from complementary pull-up (PMOS) and pull-down (NMOS) networks.
-2. NAND = PMOS **parallel**, NMOS **series**.
+2. Ex: NAND = PMOS **parallel**, NMOS **series**.
 3. `nmos`/`pmos` take `(drain, source, gate)`.
 4. Switch level builds understanding; it is not how RTL is written.
 
