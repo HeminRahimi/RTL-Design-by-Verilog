@@ -1,5 +1,4 @@
 ---
-layout: default
 title: "6. Dataflow Modeling"
 ---
 

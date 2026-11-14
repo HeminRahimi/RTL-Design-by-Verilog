@@ -2,17 +2,16 @@
 
 A structured course on **Register-Transfer Level (RTL)** design using Verilog, covering the four modeling levels (switch, gate, dataflow, behavioral) followed by verification with testbenches.
 
-**Read the course online:** https://YOUR-USERNAME.github.io/RTL-Design_by-Verilog/
 
 ## Purpose and audience
 
-These notes were prepared as a basic, self-contained explanation of RTL design for students who are about to take, or are currently taking, related courses such as:
+These notes were prepared as a basic, self-contained explanation of RTL design for students (at UoK) who are about to take, or are currently taking, related courses such as:
 
 - **Computer Architecture**
 - **Digital Systems Design**
-- **Digital Logic Design**
 - **VLSI Design**
 - **FPGA-based System Design**
+- **Digital Systems I Lab**
 
 They do not replace those courses. They give the vocabulary, the toolchain, and the modeling mindset you need so that the first lecture of any of them does not feel like a foreign language. The goal is to remove the initial friction: after working through these eight lessons you should be able to open a Verilog file in any of those courses and understand what it is doing, why it is written that way, and how to simulate it.
 
@@ -30,6 +29,7 @@ They do not replace those courses. They give the vocabulary, the toolchain, and 
 | 6 | Dataflow — half adder, 2:1 MUX |
 | 7 | Behavioral — DFF, 4:1 MUX, counter |
 | 8 | Verification — testbenches |
+| 9 | Essential Verilog concepts |
 
 All runnable examples are in [`examples/`](examples/).
 

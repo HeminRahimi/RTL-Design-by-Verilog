@@ -1,5 +1,4 @@
 ---
-layout: default
 title: "7. Behavioral Modeling"
 ---
 

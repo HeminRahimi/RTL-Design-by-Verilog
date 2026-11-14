@@ -1,5 +1,4 @@
 ---
-layout: default
 title: Home
 ---
 
@@ -31,6 +30,10 @@ Every lesson is self-contained, every example is runnable, and the complete sour
 8. [Verification with testbenches (2 testbenches)](08-verification.html)
 
 ---
+
+### Part IV — Reference
+
+9. [Essential Verilog concepts — instantiation, concurrency, blocking/non-blocking, sensitivity lists, wire vs reg](09-essential-concepts.html)
 
 ## A note on terminology
 

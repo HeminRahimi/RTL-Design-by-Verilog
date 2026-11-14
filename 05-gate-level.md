@@ -1,5 +1,4 @@
 ---
-layout: default
 title: "5. Gate-Level Modeling"
 ---
 
