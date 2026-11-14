@@ -46,22 +46,8 @@ Behavioral        ← algorithms
 - Moving **up** gives you more compact, more portable, more readable code.
 - Modern RTL is written almost entirely at the **dataflow** and **behavioral** levels; switch and gate levels are used for teaching, for cell libraries, and for final sign-off.
 
-## 3.3 Verification is NOT a fifth level
 
-This point is worth stating plainly, because it is a common confusion:
-
-> **Verification is not a level of modeling. It is an independent activity that follows design.**
-
-Reasons:
-
-1. **Different purpose.** The four levels *describe hardware*. Verification *checks* hardware.
-2. **Different constructs.** Levels use synthesizable constructs (`assign`, `always`, gate primitives). Verification uses non-synthesizable ones (`initial`, `#delay`, `$dumpfile`, `$monitor`, `$finish`).
-3. **Different tool stage.** Design goes to synthesis. Testbenches never do — they are discarded after simulation.
-4. **Level-independent.** A testbench does not care whether the design under test (DUT) was written at gate, dataflow, or behavioral level. The same `tb_dff.v` can verify a behavioral DFF, a gate-level DFF, or a switch-level DFF.
-
-For these reasons, verification is taught as the **final, separate topic** of this course (lesson 8), after the four design levels are complete.
-
-## 3.4 Design vs. verification: one table
+## 3.3 Design vs. verification: one table
 
 | | Design (levels 1–4) | Verification (lesson 8) |
 |---|---|---|
@@ -71,7 +57,7 @@ For these reasons, verification is taught as the **final, separate topic** of th
 | Ends up in silicon | Yes | Never |
 | Example | `behavioral_dff.v` | `tb_dff.v` |
 
-## 3.5 Which level should you use?
+## 3.4 Which level should you use?
 
 | Situation | Level |
 |---|---|
