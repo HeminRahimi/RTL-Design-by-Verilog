@@ -1,5 +1,4 @@
 ---
-layout: default
 title: "8. Verification with Testbenches"
 ---
 
@@ -230,5 +229,7 @@ All of these are extensions of the same idea you have just learned: **instantiat
 3. `initial` + `#delay` produce stimulus; `$dumpfile`/`$dumpvars` produce the waveform; `$monitor`/`$display` report results.
 4. Combinational DUTs are tested exhaustively; sequential DUTs are tested against a clock.
 5. A testbench that checks its own results is the foundation of all professional verification.
+
+**Next:** [Essential Verilog concepts →](09-essential-concepts.html)
 
 **Back to:** [Course home](index.html)
