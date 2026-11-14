@@ -34,7 +34,7 @@ Every lesson is self-contained, every example is runnable, and the complete sour
 
 ### Part IV — Reference
 
-9. [Essential Verilog concepts — instantiation, concurrency, blocking/non-blocking, sensitivity lists, wire vs reg](09-essential-concepts.html)
+9. [Essential Verilog concepts — instantiation, concurrency, blocking/non-blocking, sensitivity lists, wire vs reg, value types, buses and scalars](09-essential-concepts.html)
 
 ## A note on terminology
 

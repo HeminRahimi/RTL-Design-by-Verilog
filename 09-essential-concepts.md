@@ -290,7 +290,321 @@ Rules:
 - In a testbench, drive stimulus **between** clock edges (`#2` after the edge), or use non-blocking assignment in the testbench.
 - Never rely on the order of two `always` blocks.
 
-## 9.14 Key takeaways
+## 9.14 Value types and number literals
+
+Every signal in Verilog carries a **value**, and every literal in the source has a **size**, a **base**, and a **signedness**. Getting these three attributes right is the difference between a design that simulates correctly and one that silently truncates.
+
+### 9.14.1 The four-valued logic
+
+Verilog signals are not two-valued. Each bit holds one of four values:
+
+| Value | Name | Appears when |
+|---|---|---|
+| `0` | logic low | Driven low by a gate, `assign`, or procedural assignment |
+| `1` | logic high | Driven high |
+| `x` | unknown | Uninitialised `reg`; two drivers contending on one net; out-of-range index; unconnected input |
+| `z` | high impedance | Undriven tri-state net; explicit `1'bz` |
+
+`x` and `z` are **simulation concepts**. Synthesis maps `x` to a don't-care and treats `z` as an error unless it is a genuine tri-state buffer being inferred. A design whose simulation shows `x` is not "almost working" — it has a real bug: uninitialised state, multiple drivers (see 9.7), or a read of an out-of-range index.
+
+```verilog
+module xz_demo;
+     reg        uninit;      // starts as x
+     wire       y;
+     reg  [3:0] v;
+
+     assign y = 1'bz;        // explicitly high-impedance
+
+     initial begin
+          v = 4'b10x1;       // a literal containing x is legal
+          $display("uninit=%b y=%b v=%b", uninit, y, v);
+          $finish;
+     end
+endmodule
+```
+
+**Expected output:**
+
+```
+uninit=x y=z v=10x1
+```
+
+> A literal may contain `x` and `z`, but only in a **based** number: `4'b10x1` is legal, `4'dx1` is not.
+
+### 9.14.2 Number literal syntax
+
+The general form is:
+
+```
+<size>'<base><digits>
+```
+
+| Field | Meaning | Examples |
+|---|---|---|
+| `<size>` | Width in bits (decimal, optional) | `4`, `8`, `16` |
+| `'` | Separator — mandatory for based literals | `'` |
+| `<base>` | `b` binary, `o` octal, `d` decimal, `h` hex — case-insensitive; prefix with `s` for signed | `b`, `h`, `sd` |
+| `<digits>` | Digits in that base; underscores `_` are ignored | `1010`, `FF`, `1_0000` |
+
+| Literal | Width | Value |
+|---|---|---|
+| `4'b1010` | 4 | 10 (binary) |
+| `8'hA5` | 8 | 165 |
+| `16'd4660` | 16 | 4660 |
+| `12'o777` | 12 | 511 |
+| `4'shF` | 4, signed | −1 |
+| `8'b1010_1010` | 8 | 170 (underscores ignored) |
+
+### 9.14.3 Sized vs unsized — the rule that bites
+
+| Form | Width | Signedness | Example |
+|---|---|---|---|
+| Plain decimal | **32** | **signed** | `255`, `-3` |
+| Based, no size | **32** | **unsigned** | `'hFF`, `'b1010` |
+| Based, with size | the size | unsigned unless `s` | `4'hF` (unsigned), `4'shF` (signed) |
+
+The inconsistency in the first two rows is a historical wart. `255` is a signed 32-bit value; `'d255` is an unsigned 32-bit value. They compare and extend differently when mixed with narrower signals.
+
+**Avoid unsized literals in RTL.** Write `8'd255`, not `255`. The size is documentation and it prevents width surprises.
+
+SystemVerilog adds the **fill literals** `'0`, `'1`, `'x`, `'z`, which set every bit of the target to that value regardless of width. `iverilog -g2012` accepts them:
+
+```verilog
+reg [31:0] zeroed;
+zeroed = '0;          // all 32 bits zero, no matter the width
+```
+
+In plain Verilog‑1995 the equivalent is the replication operator: `zeroed = {32{1'b0}};`.
+
+### 9.14.4 Data types
+
+| Type | Kind | Width | Assigned by | Synthesizable |
+|---|---|---|---|---|
+| `wire` | net | 1 or vector | `assign`, gate output, module output | Yes |
+| `reg` | variable | 1 or vector | `always` / `initial` | Yes (as FF or combinational logic) |
+| `integer` | variable | 32, signed | procedural blocks | Yes, as a 32-bit signal — but prefer sized vectors for ports and state |
+| `real` | variable | 64-bit float | procedural blocks | No |
+| `time` | variable | 64-bit unsigned | `$time` and procedural blocks | No |
+| `parameter` / `localparam` | constant | any | at declaration | Yes (elaboration constant) |
+| `genvar` | generate index | — | `generate` loops | Yes (elaboration only) |
+| `string` | variable | — | procedural blocks | No |
+
+`integer` is the right type for a loop counter inside `always` or for testbench bookkeeping (as in 8.5). It is the wrong type for a port or for stored state — use a sized `reg [N-1:0]` there so the width is explicit.
+
+### 9.14.5 Complete example
+
+```verilog
+module literal_demo;
+     reg  [7:0]  a;
+     reg  [3:0]  b;
+     reg         c;
+     reg  [15:0] d;
+     reg  [31:0] e;
+
+     initial begin
+          a = 8'hA5;           // hex, 8 bits
+          b = 4'b1010;         // binary, 4 bits
+          c = 1'b1;            // single bit
+          d = 16'd4660;        // decimal, 16 bits
+          e = '0;              // fill literal (SystemVerilog)
+
+          $display("a=%h b=%b c=%b d=%d e=%h", a, b, c, d, e);
+          $finish;
+     end
+endmodule
+```
+
+**Expected output:**
+
+```
+a=a5 b=1010 c=1 d=4660 e=00000000
+```
+
+### 9.14.6 Pitfalls
+
+| Pitfall | Symptom | Fix |
+|---|---|---|
+| Unsized literal in RTL (`255`) | 32-bit signed value mixed into a narrow expression | Write the size: `8'd255` |
+| Assuming based literals are signed | `4'hF + 1` gives `0`, not `16` | Use `4'shF` when signedness matters |
+| `x` left in a design after reset | Simulation "works", silicon does not | Reset every register; check for multiple drivers |
+| Using `integer` for stored state | 32-bit signal inferred, not the width you wanted | Declare `reg [N-1:0]` |
+| Expecting `z` to synthesize | Synthesis errors or a spurious tri-state buffer | `z` belongs to testbenches and true tri-state buses |
+
+---
+
+## 9.15 Buses and scalars
+
+A **scalar** is a single bit. A **vector** — a bus — is an ordered group of bits treated as one signal. Almost every non-trivial design is built from vectors.
+
+### 9.15.1 Scalar vs vector
+
+```verilog
+wire       a;          // scalar: 1 bit
+wire [7:0] b;          // vector: 8 bits, b[7] is the MSB
+reg  [3:0] q;          // 4-bit register
+input  [7:0] data_in;  // 8-bit input port (1995 style)
+```
+
+In Verilog‑1995 style, one range applies to every name in the declaration:
+
+```verilog
+input [7:0] a, b;      // BOTH a and b are 8 bits
+```
+
+### 9.15.2 Bit order — `[7:0]` vs `[0:7]`
+
+Both are legal. What changes is **which index is the most significant bit**.
+
+| Declaration | MSB | LSB | Usual choice |
+|---|---|---|---|
+| `[7:0]` | index 7 | index 0 | Most code; matches left-to-right reading |
+| `[0:7]` | index 0 | index 7 | Occasionally used when the bus maps to a bit-field spec |
+
+Mixing the two in one design is legal but guarantees confusion during review. Pick `[N-1:0]` and stay with it.
+
+### 9.15.3 Selecting bits
+
+| Form | Syntax | Meaning |
+|---|---|---|
+| Bit-select | `b[3]` | A single bit |
+| Part-select | `b[7:4]` | A constant-width slice; both bounds must be constants |
+| Indexed part-select (SystemVerilog) | `b[base +: 4]` | 4 bits starting at `base`, going up; `base` may be a variable |
+| Indexed part-select, downward | `b[base -: 4]` | 4 bits starting at `base`, going down |
+
+`+:` and `-:` are the only way to slice a vector with a **variable** starting position. A plain part-select like `b[i:i+3]` is illegal — both bounds must be constant.
+
+### 9.15.4 Concatenation and replication
+
+| Operator | Meaning | Example |
+|---|---|---|
+| `{a, b, c}` | Concatenate, left to right | `{4'hA, 4'h5}` → `8'hA5` |
+| `{n{expr}}` | Replicate `expr` `n` times | `{4{1'b1}}` → `4'b1111` |
+| Nested | Both combined | `{2{byte_a[3:0]}}` → 8 bits |
+
+Concatenation is the standard way to **extend** a value without losing the carry:
+
+```verilog
+assign sum = {1'b0, a} + {1'b0, b};   // 9-bit add of two 8-bit operands
+```
+
+### 9.15.5 Width rules and silent truncation
+
+| Situation | Result |
+|---|---|
+| RHS wider than LHS | **Silently truncated** to the LHS width — high bits lost |
+| RHS narrower than LHS | Zero-extended (unsigned) or sign-extended (signed) |
+| Operands of different widths in an expression | Widened to the widest operand first |
+| Signed and unsigned mixed | The operation is performed **unsigned** |
+
+```verilog
+wire [7:0] big;
+wire [3:0] small;
+
+assign big   = 8'hFF;
+assign small = big;            // becomes 4'hF — the top 4 bits are gone, no warning
+```
+
+This is one of the most common Verilog bugs. If a value must keep its high bits, extend explicitly with `{1'b0, x}` or use a wider intermediate.
+
+### 9.15.6 Arrays and memories are not vectors
+
+| Declaration | Meaning |
+|---|---|
+| `reg [7:0] vec;` | **One** 8-bit value |
+| `reg [7:0] mem [0:255];` | **256** values, each 8 bits — a memory |
+
+A memory must be indexed to be used: `mem[i]` is an 8-bit value, but `mem` on its own cannot appear in an expression. Memories are synthesizable as block RAM on FPGAs (with the right coding style) and as register files on ASICs.
+
+### 9.15.7 Ports as buses
+
+Ports follow the same rules as internal signals:
+
+```verilog
+module alu (a, b, op, y);
+
+     input  [7:0] a, b;
+     input  [1:0] op;
+     output [7:0] y;
+
+     assign y = (op == 2'b00) ? (a + b) :
+                (op == 2'b01) ? (a - b) :
+                (op == 2'b10) ? (a & b) :
+                                (a | b);
+
+endmodule
+```
+
+### 9.15.8 Complete examples
+
+**Vector manipulation:**
+
+```verilog
+module vector_demo;
+     reg  [7:0]  byte_a;
+     reg  [3:0]  nibble;
+     reg  [11:0] twelve;
+     wire [7:0]  swapped;
+
+     assign swapped = {byte_a[3:0], byte_a[7:4]};   // swap the two nibbles
+
+     initial begin
+          byte_a = 8'hA5;
+          nibble = byte_a[3:0];        // part-select
+          twelve = {byte_a, nibble};   // concatenation: 8 + 4 = 12 bits
+
+          $display("byte_a=%h swapped=%h nibble=%h twelve=%h",
+                    byte_a, swapped, nibble, twelve);
+          $finish;
+     end
+endmodule
+```
+
+**Expected output:**
+
+```
+byte_a=a5 swapped=5a nibble=5 twelve=a55
+```
+
+**Memory:**
+
+```verilog
+module mem_demo;
+     reg [7:0] mem [0:3];
+     integer   i;
+
+     initial begin
+          for (i = 0; i < 4; i = i + 1)
+               mem[i] = i * 8;
+
+          for (i = 0; i < 4; i = i + 1)
+               $display("mem[%0d] = %0d", i, mem[i]);
+
+          $finish;
+     end
+endmodule
+```
+
+**Expected output:**
+
+```
+mem[0] = 0
+mem[1] = 8
+mem[2] = 16
+mem[3] = 24
+```
+
+### 9.15.9 Pitfalls
+
+| Pitfall | Symptom | Fix |
+|---|---|---|
+| Assuming `[0:7]` means the same as `[7:0]` | MSB and LSB reversed | Use `[N-1:0]` consistently |
+| Variable part-select `b[i:i+3]` | Compile error | Use `b[i +: 4]` (SystemVerilog) |
+| Assigning a wide value to a narrow one | Silent truncation | Extend explicitly, or widen the LHS |
+| `mem` used without an index | Compile error | Index it: `mem[i]` |
+| `input a, b;` then `input [7:0] b;` | Confusing mixed widths | Declare the whole group on one line: `input [7:0] a, b;` |
+| Reading an out-of-range index | Returns `x` | Size the vector correctly; keep indices within range |
+
+## 9.16 Key takeaways
 
 1. **Everything is concurrent.** Module instances, `assign` statements, and `always` blocks all run in parallel; file order is irrelevant.
 2. **Use named port connections** (`.port(signal)`) for any module with more than a couple of ports.
@@ -303,4 +617,8 @@ Rules:
 9. **Parameters + named override** make modules reusable without editing them.
 10. **A missing `else` in `@(*)` infers a latch.** Assign every output on every path.
 
+11. **Number literals have a size, a base, and a signedness.** Write `8'd255`, not `255`. A plain decimal is signed 32-bit; a based number without a size is unsigned 32-bit.
+12. **There are four signal values — `0`, `1`, `x`, `z`.** `x` means unknown or contention, `z` means high-impedance. Both are simulation concepts; `x` in a simulation is a bug, not a near-miss.
+13. **A vector is a bus.** `wire [7:0] a;` is 8 bits with `a[7]` the MSB. Use bit-select `a[3]`, part-select `a[7:4]`, indexed part-select `a[i +: 4]`, and concatenation `{a, b}` to build and slice buses.
+14. **Assignments silently truncate to the width of the left-hand side.** Extend explicitly with `{1'b0, a}`, and remember that `reg [7:0] vec;` is one 8-bit value while `reg [7:0] mem [0:255];` is 256 of them.
 **Back to:** [Course home](index.html)

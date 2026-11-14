@@ -29,7 +29,7 @@ They do not replace those courses. They give the vocabulary, the toolchain, and 
 | 6 | Dataflow — half adder, 2:1 MUX |
 | 7 | Behavioral — DFF, 4:1 MUX, counter |
 | 8 | Verification — testbenches |
-| 9 | Essential Verilog concepts |
+| 9 | Essential Verilog concepts — including value types, numbers, buses, scalars |
 
 All runnable examples are in [`examples/`](examples/).
 
