@@ -18,7 +18,7 @@ Verilog lets you describe the same circuit at four different levels of abstracti
 
 The same **2-input NAND gate** is written at all four levels throughout this course, so you can compare them directly.
 
-| a | b | y = ¬(a ∧ b) |
+| a | b | y = NOT (a AND b) |
 |---|---|---|
 | 0 | 0 | 1 |
 | 0 | 1 | 1 |
@@ -39,12 +39,14 @@ Gate level        ← gates
      ↓
 Dataflow          ← equations
      ↓
-Behavioral        ← algorithms
+Behavioral        ← algorithms and description
 ```
 
 - Moving **down** the list gives you more explicit control over the final hardware.
 - Moving **up** gives you more compact, more portable, more readable code.
-- Modern RTL is written almost entirely at the **dataflow** and **behavioral** levels; switch and gate levels are used for teaching, for cell libraries, and for final sign-off.
+- Modern RTL is written almost entirely at the **dataflow** and **behavioral** levels; gate level is used for small timing-critical structures, and switch level mostly for and library characterisation.
+
+> **Hint — how to choose a level.** As a designer moves *up* from switch level toward behavioral, control over the final hardware decreases and productivity increases. To keep the most control over the implementation, start from the **lowest synthesizable level** that makes sense for the block — gate level for small, timing-critical structures, dataflow for simple equations, behavioral for anything sequential or complex. Switch level sits below gate level, but because it is not synthesizable, it is used for understanding and analysis, not as a starting point for implementation. If a design cannot be expressed sensibly at the current level, move up one level and reconsider.
 
 
 ## 3.3 Design vs. verification: one table
