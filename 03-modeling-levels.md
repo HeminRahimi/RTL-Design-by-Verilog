@@ -9,7 +9,7 @@ Verilog lets you describe the same circuit at four different levels of abstracti
 
 | # | Level | Verilog construct | What you describe | Synthesizable |
 |---|---|---|---|---|
-| 1 | **Switch level** | `nmos`, `pmos`, `cmos` | Individual transistors | Yes |
+| 1 | **Switch level** | `nmos`, `pmos`, `cmos` | Individual transistors | **No** — simulation only |
 | 2 | **Gate level** | `and`, `or`, `nor`, `not`, `nand`, `xor`, … | Logic gates | Yes |
 | 3 | **Dataflow** | `assign` | Boolean equations on nets | Yes |
 | 4 | **Behavioral** | `always`, `case`, `if`, `for` | Algorithmic behaviour | Yes (with care) |
