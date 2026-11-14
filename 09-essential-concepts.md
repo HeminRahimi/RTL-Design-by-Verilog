@@ -24,9 +24,9 @@ Both `u1` and `u2` are always present. Neither "runs before" the other. In hardw
 
 The same is true of:
 
-- **`assign` statements** — continuous, always active[reference:0].
-- **`always` blocks** — all execute concurrently; the order they appear in the file has no meaning[reference:1][reference:2].
-- **Module instances** — all run in parallel, regardless of the order they are written[reference:3].
+- **`assign` statements** — continuous, always active.
+- **`always` blocks** — all execute concurrently; the order they appear in the file has no meaning.
+- **Module instances** — all run in parallel, regardless of the order they are written.
 
 ## 9.2 Instantiation: named vs positional
 
@@ -42,12 +42,12 @@ gate_nand u2 (.a(a), .b(b), .y(y2));
 
 | Style | Syntax | Order matters? | Risk |
 |---|---|---|---|
-| **Positional** | `gate_nand u1 (a, b, y);` | **Yes** — first signal goes to first port | A port-order change in the child module silently breaks every parent[reference:4] |
-| **Named** | `gate_nand u2 (.a(a), .b(b), .y(y2));` | **No** — matched by port name | Verbose, but immune to reordering[reference:5] |
+| **Positional** | `gate_nand u1 (a, b, y);` | **Yes** — first signal goes to first port | A port-order change in the child module silently breaks every parent |
+| **Named** | `gate_nand u2 (.a(a), .b(b), .y(y2));` | **No** — matched by port name | Verbose, but immune to reordering |
 
-**Rule:** use **named connections** for anything with more than two or three ports[reference:6]. Positional is acceptable only for tiny primitives like `nand g1 (y, a, b);`.
+**Rule:** use **named connections** for anything with more than two or three ports. Positional is acceptable only for tiny primitives like `nand g1 (y, a, b);`.
 
-Named and positional **cannot be mixed in one instantiation**[reference:7].
+Named and positional **cannot be mixed in one instantiation**.
 
 ## 9.3 Order does not matter
 
@@ -68,7 +68,7 @@ module m2;
 endmodule
 ```
 
-The two `assign` statements are parallel gates. Swapping them changes nothing[reference:8].
+The two `assign` statements are parallel gates. Swapping them changes nothing.
 
 The same applies to `always` blocks:
 
@@ -86,7 +86,7 @@ Reversing the two lines produces the same two flip-flops. The only place order m
 | `=` | **Blocking** | Immediate: RHS evaluated, LHS assigned before next statement | Combinational logic | `always @(*)` |
 | `<=` | **Non-blocking** | Scheduled: RHS evaluated now, LHS updated at end of time step | Flip-flops | `always @(posedge clk)` |
 
-**Rule of thumb:** `=` for combinational, `<=` for sequential[reference:9][reference:10].
+**Rule of thumb:** `=` for combinational, `<=` for sequential.
 
 ### Why it matters — the shift-register trap
 
@@ -104,11 +104,11 @@ always @(posedge clk) begin
 end
 ```
 
-With blocking assignments, the first assignment completes before the second reads `ff1`, so both registers capture `data_in` in the same cycle. With non-blocking, both RHS values are evaluated using the **old** values, then both are updated — which is exactly how real flip-flops behave[reference:11].
+With blocking assignments, the first assignment completes before the second reads `ff1`, so both registers capture `data_in` in the same cycle. With non-blocking, both RHS values are evaluated using the **old** values, then both are updated — which is exactly how real flip-flops behave.
 
 ### Mixing in one block
 
-Blocking and non-blocking **can coexist in one clocked block only if their roles are clearly separated**: blocking for temporary combinational calculations, non-blocking for the actual state update[reference:12]. For beginners the safe rule is: **never mix them in the same block.**
+Blocking and non-blocking **can coexist in one clocked block only if their roles are clearly separated**: blocking for temporary combinational calculations, non-blocking for the actual state update. For beginners the safe rule is: **never mix them in the same block.**
 
 ## 9.5 Sensitivity lists: combinational vs sequential
 
@@ -119,7 +119,7 @@ Blocking and non-blocking **can coexist in one clocked block only if their roles
 | Must list every read signal? | **Yes** — `@(*)` does it automatically | **No** — only the clock (and async reset) |
 | Assignment | `=` blocking | `<=` non-blocking |
 
-**Combinational:** the sensitivity list must contain **every** signal read inside the block. `@(*)` (or `@*`) is the compiler-checked way to guarantee this — never write the list by hand[reference:13][reference:14]. A missing signal means the output does not update when that input changes → simulation/synthesis mismatch, or an inferred latch.
+**Combinational:** the sensitivity list must contain **every** signal read inside the block. `@(*)` (or `@*`) is the compiler-checked way to guarantee this — never write the list by hand. A missing signal means the output does not update when that input changes → simulation/synthesis mismatch, or an inferred latch.
 
 **Sequential:** the list contains the clock edge, and optionally an asynchronous reset edge:
 
@@ -134,7 +134,7 @@ always @(posedge clk or posedge reset)     // async reset
 always @(clear or negedge clock)   // ERROR: one edge, one level
 ```
 
-If one signal uses `posedge`/`negedge`, **all** must[reference:15].
+If one signal uses `posedge`/`negedge`, **all** must.
 
 ## 9.6 Left-hand-side rules: wire vs reg
 
@@ -142,11 +142,11 @@ The left-hand side of an assignment is restricted by the construct used.
 
 | Construct | Legal LHS | Illegal LHS |
 |---|---|---|
-| `assign` (continuous) | `wire` (net) | `reg`[reference:16] |
-| `always` / `initial` | `reg` (variable) | `wire`[reference:17][reference:18] |
+| `assign` (continuous) | `wire` (net) | `reg` |
+| `always` / `initial` | `reg` (variable) | `wire` |
 | Gate primitive output | `wire` | `reg` |
-| Module input port | — | always a net (`wire`)[reference:19] |
-| Module output port | `wire` **or** `reg` | —[reference:20] |
+| Module input port | — | always a net (`wire`) |
+| Module output port | `wire` **or** `reg` | — |
 
 So a module output driven by `assign` is a `wire`; the same output driven inside `always` must be declared `reg`:
 
@@ -167,7 +167,7 @@ module m2 (clk, d, q);
 endmodule
 ```
 
-When instantiating a module, the **parent's signal** connected to a child **output** must be a `wire`, not a `reg`[reference:21].
+When instantiating a module, the **parent's signal** connected to a child **output** must be a `wire`, not a `reg`.
 
 ## 9.7 One driver per net
 
@@ -183,7 +183,7 @@ assign out1 = in2;
 assign out1 = sel ? in2 : in1;
 ```
 
-Synthesis reports this as **"multi-driven net"** and either keeps the last driver or refuses to elaborate[reference:22]. In simulation the value becomes `X` when the two drivers disagree. The fix is always the same: **merge the drivers into one expression or one block**[reference:23].
+Synthesis reports this as **"multi-driven net"** and either keeps the last driver or refuses to elaborate. In simulation the value becomes `X` when the two drivers disagree. The fix is always the same: **merge the drivers into one expression or one block**.
 
 ## 9.8 Implicit nets — avoid them
 
