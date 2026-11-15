@@ -17,9 +17,9 @@ These notes were prepared as a basic, self-contained explanation of RTL design f
 - **FPGA-based System Design**
 - **Digital Systems I Lab**
 
-They do not replace those courses. They give you the vocabulary, the toolchain, and the modeling mindset you need so that the first lecture of any of them does not feel like a foreign language. The goal is to remove the initial friction: after working through these nine lessons you should be able to open a Verilog file in any of those courses and understand what it is doing, why it is written that way, and how to simulate it.
+Rather than replacing those courses, these notes serve as an essential pillar for them. Mastering Verilog is crucial for completing course projects and gaining a much deeper understanding of complex digital structures through hands-on simulation.
 
-> If you are taking **Computer Architecture**, these notes give you the RTL side of the picture; the architecture course gives you the organization side (pipelines, caches, ISA). If you are taking **Digital Systems Design**, they give you the HDL and simulation skills that the course assumes you already have.
+> **Important Note:** If you are taking **Computer Architecture** or **Digital Systems Design** with me, following this Verilog course is **essential and necessary**. You will need the HDL and simulation skills taught here to follow the lectures, complete your projects, and succeed in the course.
 
 ## Contents
 
