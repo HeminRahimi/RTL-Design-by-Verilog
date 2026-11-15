@@ -113,4 +113,4 @@ Because there is no testbench and no `$dumpfile`, `vvp` exits immediately withou
 3. `nmos`/`pmos` take `(drain, source, gate)`.
 4. Switch level builds understanding; it is not how RTL is written.
 
-**Next:** [Gate-level modeling →](05-gate-level)
+**Next:** [Gate-level modeling →](/05-gate-level)

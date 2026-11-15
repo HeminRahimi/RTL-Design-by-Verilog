@@ -620,4 +620,4 @@ mem[3] = 24
 12. **There are four signal values — `0`, `1`, `x`, `z`.** `x` means unknown or contention, `z` means high-impedance. Both are simulation concepts; `x` in a simulation is a bug, not a near-miss.
 13. **A vector is a bus.** `wire [7:0] a;` is 8 bits with `a[7]` the MSB. Use bit-select `a[3]`, part-select `a[7:4]`, indexed part-select `a[i +: 4]`, and concatenation `{a, b}` to build and slice buses.
 14. **Assignments silently truncate to the width of the left-hand side.** Extend explicitly with `{1'b0, a}`, and remember that `reg [7:0] vec;` is one 8-bit value while `reg [7:0] mem [0:255];` is 256 of them.
-**Back to:** [Course home](index)
+**Back to:** [Course home](/)

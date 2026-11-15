@@ -7,7 +7,7 @@ slug: /
 
 A structured, tool-driven course on **Register-Transfer Level (RTL)** design using Verilog, written for students who want a professional workflow rather than a collection of disconnected snippets.
 
-Every lesson is self-contained, every example is runnable, and the complete source for each design lives in the [`examples/`](examples/) folder of this repository.
+Every lesson is self-contained, every example is runnable, and the complete source for each design lives in the [`examples/`](https://github.com/HeminRahimi/RTL-Design-by-Verilog/tree/main/examples) folder of this repository.
 
 ---
 
@@ -15,26 +15,26 @@ Every lesson is self-contained, every example is runnable, and the complete sour
 
 ### Part I — Foundations
 
-1. [Why RTL, different HDLs, and why Verilog?](01-why-rtl)
-2. [Preferred tools: Icarus Verilog + GTKWave](02-tools)
+1. [Why RTL, different HDLs, and why Verilog?](/01-why-rtl)
+2. [Preferred tools: Icarus Verilog + GTKWave](/02-tools)
 
 ### Part II — The four modeling levels
 
-3. [The four modeling levels — overview](03-modeling-levels)
-4. [**Switch level** — CMOS NOR (1 example)](04-switch-level)
-5. [**Gate level** — NOR and full adder (2 examples)](05-gate-level)
-6. [**Dataflow modeling** — half adder and 2:1 MUX (2 examples)](06-dataflow)
-7. [**Behavioral modeling** — DFF with reset, 4:1 MUX, 4-bit up counter (3 examples)](07-behavioral)
+3. [The four modeling levels — overview](/03-modeling-levels)
+4. [**Switch level** — CMOS NOR (1 example)](/04-switch-level)
+5. [**Gate level** — NOR and full adder (2 examples)](/05-gate-level)
+6. [**Dataflow modeling** — half adder and 2:1 MUX (2 examples)](/06-dataflow)
+7. [**Behavioral modeling** — DFF with reset, 4:1 MUX, 4-bit up counter (3 examples)](/07-behavioral)
 
 ### Part III — Verification (an independent topic, not a level)
 
-8. [Verification with testbenches (2 testbenches)](08-verification)
+8. [Verification with testbenches (2 testbenches)](/08-verification)
 
 ---
 
 ### Part IV — Reference
 
-9. [Essential Verilog concepts — instantiation, concurrency, blocking/non-blocking, sensitivity lists, wire vs reg, value types, buses and scalars](09-essential-concepts)
+9. [Essential Verilog concepts — instantiation, concurrency, blocking/non-blocking, sensitivity lists, wire vs reg, value types, buses and scalars](/09-essential-concepts)
 
 ## A note on terminology
 
@@ -58,4 +58,4 @@ Verilog is usually described as having **four levels of modeling**:
 - **GTKWave**
 - A text editor (VS Code recommended)
 
-Installation instructions are in [lesson 2](02-tools).
+Installation instructions are in [lesson 2](/02-tools).

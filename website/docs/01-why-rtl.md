@@ -89,4 +89,4 @@ This is the most common beginner trap. Verilog *looks* like C but describes **ha
 - Simulate any design with Icarus Verilog and inspect it in GTKWave.
 - Write a testbench that applies stimulus and checks results.
 
-**Next:** [Choose your tools →](02-tools)
+**Next:** [Choose your tools →](/02-tools)

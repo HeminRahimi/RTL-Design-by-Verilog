@@ -4,9 +4,13 @@
 const config = {
   title: 'RTL Design with Verilog',
   tagline: 'A structured course from switch level to verification',
-  url: 'https://rtl-verilog.pages.dev',
-  baseUrl: '/',
+  url: 'https://HeminRahimi.github.io',
+  baseUrl: '/RTL-Design-by-Verilog/',
+  organizationName: 'HeminRahimi',
+  projectName: 'RTL-Design-by-Verilog',
+  trailingSlash: true,
   onBrokenLinks: 'warn',
+  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   i18n: {
     defaultLocale: 'en',
@@ -19,8 +23,8 @@ const config = {
       ({
         docs: {
           routeBasePath: '/',
-          numberPrefixParser: false,
           sidebarPath: require.resolve('./sidebars.js'),
+          numberPrefixParser: false,
         },
         blog: false,
         theme: {
@@ -52,9 +56,9 @@ const config = {
           {
             title: 'Examples',
             items: [
-              { label: 'NAND (switch)', href: '/examples/switch_nand.v' },
-              { label: 'NAND (gate)', href: '/examples/gate_nand.v' },
-              { label: 'DFF (behavioral)', href: '/examples/behavioral_dff.v' },
+              { label: 'NAND (switch)', href: 'https://HeminRahimi.github.io/RTL-Design-by-Verilog/examples/switch_nand.v' },
+              { label: 'NAND (gate)', href: 'https://HeminRahimi.github.io/RTL-Design-by-Verilog/examples/gate_nand.v' },
+              { label: 'DFF (behavioral)', href: 'https://HeminRahimi.github.io/RTL-Design-by-Verilog/examples/behavioral_dff.v' },
             ],
           },
         ],

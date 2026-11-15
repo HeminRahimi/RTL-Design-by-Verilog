@@ -249,4 +249,4 @@ Synthesizable only when they unroll to a fixed number of iterations. `forever` i
 4. Assign every output on every path in a combinational block, or you get a latch.
 5. Anything assigned in an `always` block must be declared `reg` — in 1995 style: `output q; reg q;`.
 
-**Next:** [Verification with testbenches →](08-verification)
+**Next:** [Verification with testbenches →](/08-verification)

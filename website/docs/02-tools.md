@@ -192,4 +192,4 @@ Run `make dff` and the whole compile‑simulate‑view chain executes.
 
 Everything in this course runs on Icarus Verilog. Nothing requires a commercial tool.
 
-**Next:** [The four modeling levels →](03-modeling-levels)
+**Next:** [The four modeling levels →](/03-modeling-levels)

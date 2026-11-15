@@ -230,6 +230,6 @@ All of these are extensions of the same idea you have just learned: **instantiat
 4. Combinational DUTs are tested exhaustively; sequential DUTs are tested against a clock.
 5. A testbench that checks its own results is the foundation of all professional verification.
 
-**Next:** [Essential Verilog concepts →](09-essential-concepts)
+**Next:** [Essential Verilog concepts →](/09-essential-concepts)
 
-**Back to:** [Course home](index)
+**Back to:** [Course home](/)

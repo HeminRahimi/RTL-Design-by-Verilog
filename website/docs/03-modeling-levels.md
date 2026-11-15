@@ -70,4 +70,4 @@ Behavioral        ← algorithms and description
 
 A practical rule: **write combinational logic as dataflow, sequential logic as behavioral.**
 
-**Next:** [Switch-level modeling →](04-switch-level)
+**Next:** [Switch-level modeling →](/04-switch-level)

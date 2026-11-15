@@ -162,4 +162,4 @@ For everything else, dataflow or behavioral is shorter, clearer, and lets the sy
 3. Hierarchy is built by instantiating modules with named port connections.
 4. Gate level shows you what synthesis produces; it is not how you write production RTL.
 
-**Next:** [Dataflow modeling →](06-dataflow)
+**Next:** [Dataflow modeling →](/06-dataflow)

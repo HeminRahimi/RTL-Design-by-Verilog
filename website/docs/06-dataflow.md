@@ -218,4 +218,4 @@ Because the tool does the optimisation, write the equation in the **clearest** f
 4. Watch widths — Verilog truncates silently.
 5. Dataflow is the right level for combinational logic.
 
-**Next:** [Behavioral modeling →](07-behavioral)
+**Next:** [Behavioral modeling →](/07-behavioral)
