@@ -5,57 +5,45 @@ slug: /
 
 # RTL Design with Verilog
 
-A structured, tool-driven course on **Register-Transfer Level (RTL)** design using Verilog, written for students who want a professional workflow rather than a collection of disconnected snippets.
+A structured course on **Register-Transfer Level (RTL)** design using Verilog, covering the four modeling levels (switch, gate, dataflow, behavioral) followed by verification with testbenches.
 
-Every lesson is self-contained, every example is runnable, and the complete source for each design lives in the [`examples/`](https://github.com/HeminRahimi/RTL-Design-by-Verilog/tree/main/examples) folder of this repository.
+## Purpose and audience
 
----
+These notes were prepared as a basic, self-contained explanation of RTL design for students (at UoK) who are about to take, or are currently taking, related courses such as:
 
-## Course map
+- **Computer Architecture**
+- **Digital Systems Design**
+- **VLSI Design**
+- **FPGA-based System Design**
+- **Digital Systems I Lab**
 
-### Part I — Foundations
+They do not replace those courses. They give you the vocabulary, the toolchain, and the modeling mindset you need so that the first lecture of any of them does not feel like a foreign language. The goal is to remove the initial friction: after working through these nine lessons you should be able to open a Verilog file in any of those courses and understand what it is doing, why it is written that way, and how to simulate it.
 
-1. [Why RTL, different HDLs, and why Verilog?](/01-why-rtl)
-2. [Preferred tools: Icarus Verilog + GTKWave](/02-tools)
+> If you are taking **Computer Architecture**, these notes give you the RTL side of the picture; the architecture course gives you the organization side (pipelines, caches, ISA). If you are taking **Digital Systems Design**, they give you the HDL and simulation skills that the course assumes you already have.
 
-### Part II — The four modeling levels
+## Contents
 
-3. [The four modeling levels — overview](/03-modeling-levels)
-4. [**Switch level** — CMOS NOR (1 example)](/04-switch-level)
-5. [**Gate level** — NOR and full adder (2 examples)](/05-gate-level)
-6. [**Dataflow modeling** — half adder and 2:1 MUX (2 examples)](/06-dataflow)
-7. [**Behavioral modeling** — DFF with reset, 4:1 MUX, 4-bit up counter (3 examples)](/07-behavioral)
+| # | Lesson |
+|---|---|
+| 1 | Why RTL, HDLs, and Verilog |
+| 2 | Tools: Icarus Verilog + GTKWave |
+| 3 | The four modeling levels |
+| 4 | Switch level — CMOS NAND |
+| 5 | Gate level — NAND, full adder |
+| 6 | Dataflow — half adder, 2:1 MUX |
+| 7 | Behavioral — DFF, 4:1 MUX, counter |
+| 8 | Verification — testbenches |
+| 9 | Essential Verilog concepts — including value types, numbers, buses, scalars |
 
-### Part III — Verification (an independent topic, not a level)
+All runnable examples are in [`examples/`](/examples/).
 
-8. [Verification with testbenches (2 testbenches)](/08-verification)
+## Simulating
 
----
+```bash
+iverilog -g2012 -Wall -o sim examples/tb_mux4.v examples/behavioral_mux4.v
+vvp sim
+```
 
-### Part IV — Reference
+## License
 
-9. [Essential Verilog concepts — instantiation, concurrency, blocking/non-blocking, sensitivity lists, wire vs reg, value types, buses and scalars](/09-essential-concepts)
-
-## A note on terminology
-
-Verilog is usually described as having **four levels of modeling**:
-
-| # | Level | Constructs |
-|---|---|---|
-| 1 | Switch level | `nmos`, `pmos`, `cmos` |
-| 2 | Gate level | `and`, `or`, `nor`, `not`, … |
-| 3 | Dataflow | `assign` |
-| 4 | Behavioral | `always`, `case`, `if` |
-
-**Verification is not a modeling level.** It is a separate discipline that uses non-synthesizable constructs (`initial`, `$dumpfile`, `$dumpvars`, `$finish`, `#delay`) to check that a design — written at *any* of the four levels — behaves correctly. It is taught last because it depends on having a design to check, not because it is a fifth level of abstraction.
-
----
-
-## What you need
-
-- A computer running Windows, macOS, or Linux
-- **Icarus Verilog** (`iverilog`, `vvp`)
-- **GTKWave**
-- A text editor (VS Code recommended)
-
-Installation instructions are in [lesson 2](/02-tools).
+Course materials are provided for educational use. Prepared by the instructor for classroom use.
