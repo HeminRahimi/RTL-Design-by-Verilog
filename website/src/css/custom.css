@@ -1,0 +1,33 @@
+:root {
+  --ifm-color-primary: #0050d0;
+  --ifm-code-font-size: 90%;
+}
+
+pre,
+code,
+.docusaurus-highlight-code-line {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+
+pre {
+  font-family: "Fira Code", "Consolas", "Courier New", monospace;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.2em 0;
+}
+th, td {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  padding: 6px 10px;
+  text-align: left;
+}
+th {
+  background: var(--ifm-color-emphasis-100);
+  font-weight: 600;
+}
