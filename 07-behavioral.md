@@ -104,10 +104,10 @@ Points to notice:
 **Timing diagram:**
 
 ```text
-clk    _/‾\_/‾\_/‾\_/‾\_
-reset  ‾‾‾\_______/‾‾‾‾‾‾‾‾
-d      ___/‾‾‾\___/‾‾‾\___
-q      ___/‾‾‾\___/‾‾‾\___   (q follows d only while reset is low)
+clk    _/‾\_/‾\_/‾\_/‾\_/‾\_/‾\_
+reset  ‾‾‾\___________/‾‾‾‾‾‾‾‾
+d      ___/‾‾‾\___/‾‾‾\___/‾‾‾\___
+q      ___/‾‾‾\___/‾‾‾\___________   (q follows d only while reset is low)
 ```
 
 ## 7.7 Example 2 — 4:1 multiplexer
