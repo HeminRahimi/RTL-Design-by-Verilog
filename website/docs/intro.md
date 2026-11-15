@@ -25,15 +25,15 @@ Rather than replacing those courses, these notes serve as an essential pillar fo
 
 | # | Lesson |
 |---|---|
-| 1 | Why RTL, HDLs, and Verilog |
-| 2 | Tools: Icarus Verilog + GTKWave |
-| 3 | The four modeling levels |
-| 4 | Switch level — CMOS NAND |
-| 5 | Gate level — NAND, full adder |
-| 6 | Dataflow — half adder, 2:1 MUX |
-| 7 | Behavioral — DFF, 4:1 MUX, counter |
-| 8 | Verification — testbenches |
-| 9 | Essential Verilog concepts — including value types, numbers, buses, scalars |
+| 1 | [Why RTL, HDLs, and Verilog](/01-why-rtl) |
+| 2 | [Tools: Icarus Verilog + GTKWave](/02-tools) |
+| 3 | [The four modeling levels](/03-modeling-levels) |
+| 4 | [Switch level — CMOS NAND](/04-switch-level) |
+| 5 | [Gate level — NAND, full adder](/05-gate-level) |
+| 6 | [Dataflow — half adder, 2:1 MUX](/06-dataflow) |
+| 7 | [Behavioral — DFF, 4:1 MUX, counter](/07-behavioral) |
+| 8 | [Verification — testbenches](/08-verification) |
+| 9 | [Essential Verilog concepts — including value types, numbers, buses, scalars](/09-essential-concepts) |
 
 All runnable examples are in [`examples/`](/examples/).
 
