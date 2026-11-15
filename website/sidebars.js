@@ -28,7 +28,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Part IV — Reference',
+      label: 'Part IV — more on Verilog',
       collapsed: false,
       items: ['09-essential-concepts'],
     },
