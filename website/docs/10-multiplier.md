@@ -78,7 +78,7 @@ endmodule
 
 ## 10.4 The Controller (FSM)
 
-The Controller is a Mealy/Moore state machine. It has four states: `start`, `load`, `calc`, and `out`.
+The Controller is a Hoffman based state machine. It has four states: `start`, `load`, `calc`, and `out`.
 
 ```verilog
 module Controller(clk, reset, go, Cntf, done, ld_A, ld_B, Cen, ld_Result, rst);
