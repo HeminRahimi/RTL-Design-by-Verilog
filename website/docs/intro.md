@@ -34,6 +34,7 @@ Rather than replacing those courses, these notes serve as an essential pillar fo
 | 7 | [Behavioral — DFF, 4:1 MUX, counter](/07-behavioral) |
 | 8 | [Verification — testbenches](/08-verification) |
 | 9 | [Essential Verilog concepts — including value types, numbers, buses, scalars](/09-essential-concepts) |
+| 10 | [RTL Projects: 8-bit Multiplier](/10-multiplier) |
 
 All runnable examples are in [`examples/`](/examples/).
 

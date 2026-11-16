@@ -32,6 +32,12 @@ const sidebars = {
       collapsed: false,
       items: ['09-essential-concepts'],
     },
+    {
+      type: 'category',
+      label: 'Part V — RTL Projects',
+      collapsed: false,
+      items: ['10-multiplier'],
+    },
   ],
 };
 
