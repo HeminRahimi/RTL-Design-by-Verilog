@@ -62,7 +62,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Hemin Rahimi.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Hemin Rahimi. | <a href="mailto:rahimihemn@gmail.com">rahimihemn@gmail.com</a>`,
       },
     }),
 };
